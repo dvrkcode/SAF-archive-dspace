@@ -71,10 +71,17 @@ class Item:
     """
     Returns an XML represenatation of the item.
     """
-    def toXML(self):
+    def toXML(self, schema):
+        counter_metadata = 0
+
         output = ""
-        output += "<dublin_core>" + os.linesep
+        if schema == "dc":
+            output += "<dublin_core>" + os.linesep
+        else:
+            output += '<dublin_core schema="%s">' % schema + os.linesep
         for index, value in self.getAttributes().items():
+            if schema != index.split('.')[0]:
+                continue
             tag_open = self.getOpenAttributeTag(index)
             tag_close = "</dcvalue>" + os.linesep
 
@@ -87,8 +94,12 @@ class Item:
                 output += tag_open
                 output += html.escape(val.strip(), quote=True)
                 output += tag_close
+            
+            counter_metadata += 1
         output += "</dublin_core>" + os.linesep
 
+        if counter_metadata == 0:
+            return ''
         return output
 
     """
@@ -100,7 +111,6 @@ class Item:
         qualifier = self.getAttributeQualifierString(attribute)
 
         tag_open = '<dcvalue%s%s%s>' % (element, qualifier, lang)
-
         return tag_open
 
     """

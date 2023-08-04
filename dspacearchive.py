@@ -19,6 +19,7 @@ class DspaceArchive:
     """
     def __init__(self, input_path):
         self.items = []
+        self.schemas = []
         self.input_path = input_path
         self.input_base_path = os.path.dirname(input_path)
 
@@ -26,6 +27,7 @@ class DspaceArchive:
             reader = csv.reader(f)
 
             header = next(reader)
+            self.setSchemas(header)
 
             item_factory = ItemFactory(header)
 
@@ -69,6 +71,17 @@ class DspaceArchive:
             self.writeMetadata(item, item_path)
 
     """
+    Set schemas in the files
+    """
+    def setSchemas(self, headers):
+        for header in headers:
+            if header == "files":
+                continue
+            schema = header.split('.')[0]
+            if schema not in self.schemas:
+                self.schemas.append(schema)
+
+    """
     Create a zip file of the archive. 
     """
     def zip(self, dir = None):
@@ -104,8 +117,17 @@ class DspaceArchive:
             copy(os.path.join(self.input_base_path, file_name), item_path)
 
     def writeMetadata(self, item, item_path):
-        xml = item.toXML()
+        for schema in self.schemas:
+            xml = item.toXML(schema)
+            
+            if xml == '':
+                continue
 
-        metadata_file = open(os.path.join(item_path, 'dublin_core.xml'), "w")
-        metadata_file.write(xml)
-        metadata_file.close()
+            name_xml = 'dublin_core.xml'
+
+            if schema != "dc":
+                name_xml = 'metadata_' + schema + '.xml'
+
+            metadata_file = open(os.path.join(item_path, name_xml), "w")
+            metadata_file.write(xml)
+            metadata_file.close()

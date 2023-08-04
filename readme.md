@@ -68,3 +68,11 @@ The `--mapfile` argument is particularly important, and the file that gets
 generated should be kept along with the rest of the source directory. This
 file is required for deleting or modifying the imported files using the
 command-line tools.
+
+# Funcionamiento de compresor
+
+El compresor buscar dentro de la carpeta output todos los items y los comprimira en una carpeta .zip, para logar esto es necesario incluir la etiqueta `-z` en el comando de la siguiente manera:
+
+```sh
+./dspace-csv-archive.py /path/to/input/file.csv -z
+```
