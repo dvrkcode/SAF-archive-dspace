@@ -1,6 +1,6 @@
-DSpace CSV Archive
+SAF-archive-dspace
 ====================
-Takes a simple CSV spreadsheet, and a bunch of files and magically turns them into the DSpace Simple Archive format. 
+Based on [dspace-csv-archive](https://github.com/lib-uoguelph-ca/dspace-csv-archive) project, added possibility to compress to .zip file in files of maximum 512 mb weight to avoid problem of exceeding default maximum that accepts dspace and custom metadata.
 
 Some simple rules: 
 -------------------
@@ -21,27 +21,27 @@ An Example:
 		<th>files</th>
 		<th>dc.title en</th>
 		<th>dc.contributor.author en</th>
-		<th>dc.subject</th>
+		<th>custom.metadata</th>
 		<th>dc.type</th>
 	</tr>
 	<tr>
 		<td>something1.pdf||something_else1.pdf</td>
 		<td>title 1</td>
 		<td>author 1</td>
-		<td>subject 1</td>
+		<td>value 1</td>
 		<td>Report</td>
 	</tr>
 	<tr>
 		<td>directory/something2.pdf</td>
 		<td>"title 2, with comma"</td>
 		<td>author 2a||author 2b</td>
-		<td>subject 2</td>
+		<td>value 2</td>
 		<td>Article</td>
 	</tr>
 </table>
 
 Usage 
-	./dspace-csv-archive /path/to/input/file.csv
+	./dspace-csv-archive.py /path/to/input/file.csv -z
 
 Importing into DSpace
 ---------------------

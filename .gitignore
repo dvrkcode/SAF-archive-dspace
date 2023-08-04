@@ -8,3 +8,4 @@ output
 venv
 .vscode
 *.zip
+*.swp
