@@ -1,6 +1,6 @@
 SAF-archive-dspace
 ====================
-Based on [dspace-csv-archive](https://github.com/lib-uoguelph-ca/dspace-csv-archive) project, added possibility to compress to .zip file in files of maximum 512 mb weight to avoid problem of exceeding default maximum that accepts dspace and custom metadata.
+Based on [dspace-csv-archive](https://github.com/lib-uoguelph-ca/dspace-csv-archive) project, added possibility to compress to .zip file in files of maximum 512 mb size to avoid problem of exceeding default maximum that accepts dspace and custom metadata.
 
 Some simple rules: 
 -------------------
